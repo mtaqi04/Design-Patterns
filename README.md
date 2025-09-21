@@ -1,5 +1,16 @@
 - # design-patterns-assignment1
 
+ ## Test
+ mvn -q -DskipTests=false test
+
+## Execution Proof
+
+**Demo output**
+![Demo Output](docs/screenshots/demo-output.png)
+
+**JUnit test summary**
+![Maven Test Summary](docs/screenshots/JUnit_test.png)
+
 +# Assignment Context
 +This project follows the assignment brief: use an **Abstract Factory** to create
 +two related product families (Smart Bulb, Smart Lock) for two brands (A, B),
