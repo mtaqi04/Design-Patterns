@@ -6,7 +6,7 @@
 ## Execution Proof
 
 **Demo output**
-![Demo Output](docs/screenshots/demo-output.png)
+![Demo Output](docs/screenshots/demo.png)
 
 **JUnit test summary**
 ![Maven Test Summary](docs/screenshots/JUnit_test.png)
