@@ -1,0 +1,146 @@
+@startuml
+skinparam packageStyle rectangle
+skinparam classAttributeIconSize 0
+skinparam shadowing false
+skinparam linetype ortho
+
+' =============================
+' Interfaces
+' =============================
+interface SmartDeviceFactory {
+  + createBulb() : SmartBulb
+  + createLock() : SmartLock
+}
+
+interface SmartBulb {
+  + getBrand() : String
+  + getPowerUsage() : int
+  + setPowerUsage(watts:int) : void
+  + loadUsageFromFile(path:String) : void
+}
+
+interface SmartLock {
+  + getBrand() : String
+  + getBatteryConsumption() : int
+  + setBatteryConsumption(mahPerDay:int) : void
+  + loadUsageFromFile(path:String) : void
+}
+
+' =============================
+' Abstract products (Factory Method lives here)
+' =============================
+abstract class AbstractBulb implements SmartBulb {
+  - brand : String
+  - powerUsage : int
+  # readUsage(path:Path) : int   ' <<Factory Method>>
+}
+
+abstract class AbstractLock implements SmartLock {
+  - brand : String
+  - batteryConsumption : int
+  # readUsage(path:Path) : int   ' <<Factory Method>>
+}
+
+note right of AbstractBulb
+  Factory Method:
+  readUsage(Path):int
+  (subclass overrides to parse brand-specific file)
+end note
+
+note right of AbstractLock
+  Factory Method:
+  readUsage(Path):int
+  (subclass overrides to parse brand-specific file)
+end note
+
+' =============================
+' Concrete products
+' =============================
+class BrandABulb extends AbstractBulb
+class BrandALock extends AbstractLock
+
+class BrandBBulb extends AbstractBulb
+class BrandBLock extends AbstractLock
+
+' =============================
+' Concrete factories
+' =============================
+class BrandAFactory implements SmartDeviceFactory
+class BrandBFactory implements SmartDeviceFactory
+
+' =============================
+' Relationships
+' =============================
+SmartDeviceFactory ..> SmartBulb : createBulb()
+SmartDeviceFactory ..> SmartLock : createLock()
+
+BrandAFactory ..|> SmartDeviceFactory
+BrandBFactory ..|> SmartDeviceFactory
+
+AbstractBulb ..|> SmartBulb
+AbstractLock ..|> SmartLock
+
+BrandABulb --|> AbstractBulb
+BrandALock --|> AbstractLock
+BrandBBulb --|> AbstractBulb
+BrandBLock --|> AbstractLock
+
+@enduml
+
+
+---
+
+```mermaid
+classDiagram
+  direction TB
+  class SmartDeviceFactory {
+    <<interface>>
+    + createBulb() SmartBulb
+    + createLock() SmartLock
+  }
+  class SmartBulb {
+    <<interface>>
+    + getBrand() String
+    + getPowerUsage() int
+    + setPowerUsage(int)
+    + loadUsageFromFile(String)
+  }
+  class SmartLock {
+    <<interface>>
+    + getBrand() String
+    + getBatteryConsumption() int
+    + setBatteryConsumption(int)
+    + loadUsageFromFile(String)
+  }
+  class AbstractBulb {
+    <<abstract>>
+    - brand String
+    - powerUsage int
+    # readUsage(Path) int
+  }
+  class AbstractLock {
+    <<abstract>>
+    - brand String
+    - batteryConsumption int
+    # readUsage(Path) int
+  }
+  class BrandABulb
+  class BrandALock
+  class BrandBBulb
+  class BrandBLock
+  class BrandAFactory
+  class BrandBFactory
+
+  SmartDeviceFactory <|.. BrandAFactory
+  SmartDeviceFactory <|.. BrandBFactory
+
+  SmartBulb <|.. AbstractBulb
+  SmartLock <|.. AbstractLock
+
+  AbstractBulb <|-- BrandABulb
+  AbstractLock <|-- BrandALock
+  AbstractBulb <|-- BrandBBulb
+  AbstractLock <|-- BrandBLock
+
+  SmartDeviceFactory ..> SmartBulb : createBulb()
+  SmartDeviceFactory ..> SmartLock : createLock()

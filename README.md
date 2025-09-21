@@ -11,6 +11,9 @@
 **JUnit test summary**
 ![Maven Test Summary](docs/screenshots/JUnit_test.png)
 
+**UML Diagram**
+![UML](docs/uml/smart_devices.png)
+
 +# Assignment Context
 +This project follows the assignment brief: use an **Abstract Factory** to create
 +two related product families (Smart Bulb, Smart Lock) for two brands (A, B),
