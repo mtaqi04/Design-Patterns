@@ -1,5 +1,9 @@
 - # design-patterns-assignment1
 
+
+Student's for this group assignment: Mohammad Taqi(100930254), Juan Pablo Del Rio(100925835) and Abdul Aziz Syed(100792709).
+
+
  ## Test
  mvn -q -DskipTests=false test
 
